@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../theme.dart';
 import '../tokens.dart';
 
-/// Opaque content card (NuvioSurfaceCard).
+/// Opaque content card: surface colour, 24 px radius.
 class NuvioSurfaceCard extends StatelessWidget {
   const NuvioSurfaceCard({
     super.key,
@@ -25,11 +25,10 @@ class NuvioSurfaceCard extends StatelessWidget {
     final c = context.nuvioColors;
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: c.surfaceCard,
+        color: c.surface,
         borderRadius: NuvioRadius.all(
           compact ? NuvioRadius.compactCard : NuvioRadius.card,
         ),
-        border: Border.all(color: c.borderSubtle, width: NuvioBorderWidth.thin),
       ),
       child: Padding(padding: padding, child: child),
     );
@@ -76,7 +75,7 @@ class NuvioGlassPanel extends StatelessWidget {
 }
 
 /// Tappable translucent row card, as used for each stream result
-/// (StreamCard.kt): 12 px radius, white 5 % fill, accent outline when selected.
+/// 12 px radius, white 5 % fill, accent outline when selected.
 class NuvioListCard extends StatelessWidget {
   const NuvioListCard({
     super.key,
@@ -103,9 +102,10 @@ class NuvioListCard extends StatelessWidget {
       color: selected ? c.accent.withValues(alpha: 0.12) : c.glassFill,
       shape: RoundedRectangleBorder(
         borderRadius: NuvioRadius.all(NuvioRadius.lg),
-        side: selected
-            ? BorderSide(color: c.accent.withValues(alpha: 0.52))
-            : BorderSide.none,
+        side:
+            selected
+                ? BorderSide(color: c.accent.withValues(alpha: 0.52))
+                : BorderSide.none,
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -118,7 +118,7 @@ class NuvioListCard extends StatelessWidget {
   }
 }
 
-/// Small uppercase-style section heading (NuvioSectionLabel).
+/// Small bold section heading.
 class NuvioSectionLabel extends StatelessWidget {
   const NuvioSectionLabel(this.text, {super.key});
 
@@ -126,13 +126,41 @@ class NuvioSectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: NuvioSpace.s8),
-        child: Text(
-          text,
-          style: Theme.of(context)
-              .textTheme
-              .labelMedium!
-              .copyWith(color: context.nuvioColors.textMuted),
+    padding: const EdgeInsets.only(bottom: NuvioSpace.s8),
+    child: Text(
+      text,
+      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+        color: context.nuvioColors.textMuted,
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+  );
+}
+
+/// "Label value" pair on one line.
+class NuvioInlineMetadata extends StatelessWidget {
+  const NuvioInlineMetadata({
+    super.key,
+    required this.label,
+    required this.value,
+  });
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.nuvioColors;
+    final body = Theme.of(context).textTheme.bodyMedium!;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(label, style: body.copyWith(color: c.textMuted)),
+        const SizedBox(width: NuvioSpace.s6),
+        Flexible(
+          child: Text(value, style: body.copyWith(color: c.textPrimary)),
         ),
-      );
+      ],
+    );
+  }
 }

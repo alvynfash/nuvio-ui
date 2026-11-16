@@ -1,52 +1,99 @@
-// Type scale (NuvioTokens.Type / LineHeight / LetterSpacing, NuvioTypeScale and
-// the Material Typography overrides in ThemeKt.getNuvioTypography).
-// Compose sp == Flutter fontSize; Flutter `height` is lineHeight / fontSize.
+// Type scale: Nuvio's own ramp plus the Material TextTheme slots it overrides.
+// Flutter `height` is lineHeight / fontSize.
 
 import 'package:flutter/material.dart';
 
-TextStyle _style(String? family, double size, double lineHeight,
-        FontWeight weight, [double letterSpacing = 0]) =>
-    TextStyle(
-      fontFamily: family,
-      fontSize: size,
-      height: lineHeight / size,
-      fontWeight: weight,
-      letterSpacing: letterSpacing,
-    );
+TextStyle _style(
+  String? family,
+  double size,
+  double lineHeight,
+  FontWeight weight, [
+  double letterSpacing = 0,
+]) => TextStyle(
+  fontFamily: family,
+  fontSize: size,
+  height: lineHeight / size,
+  fontWeight: weight,
+  letterSpacing: letterSpacing,
+);
+
+/// Font families bundled with the package.
+abstract final class NuvioFonts {
+  /// JetBrains Sans (400, 600, 700), as used by Nuvio.
+  static const jetBrainsSans = 'packages/nuvio_ui/JetBrains Sans';
+
+  /// Default family for [NuvioTypeScale] and `NuvioThemeData.build`.
+  static const String defaultFamily = jetBrainsSans;
+}
 
 /// Nuvio's own type ramp, available as `context.nuvioType`.
 @immutable
 class NuvioTypeScale extends ThemeExtension<NuvioTypeScale> {
-  NuvioTypeScale({this.fontFamily})
-      : labelXs = _style(fontFamily, 11, 14, FontWeight.w600),
-        labelSm = _style(fontFamily, 12, 15, FontWeight.w600),
-        bodySm = _style(fontFamily, 13, 18, FontWeight.w400),
-        bodyMd = _style(fontFamily, 14, 20, FontWeight.w400),
-        bodyLg = _style(fontFamily, 16, 22, FontWeight.w400),
-        titleSm = _style(fontFamily, 18, 22, FontWeight.w600),
-        titleMd = _style(fontFamily, 22, 26, FontWeight.w600),
-        titleLg = _style(fontFamily, 28, 32, FontWeight.w600),
-        displaySm = _style(fontFamily, 32, 36, FontWeight.w700),
-        displayMd = _style(fontFamily, 48, 52, FontWeight.w700),
-        pageDisplay = _style(fontFamily, 38, 42, FontWeight.w700, -1.2),
-        headline = _style(fontFamily, 26, 30, FontWeight.w600, -0.8);
+  /// Builds the ramp in [fontFamily] (the bundled JetBrains Sans by default).
+  NuvioTypeScale({this.fontFamily = NuvioFonts.defaultFamily})
+    : labelXs = _style(fontFamily, 11, 14, FontWeight.w600),
+      labelSm = _style(fontFamily, 12, 15, FontWeight.w600),
+      bodySm = _style(fontFamily, 13, 18, FontWeight.w400),
+      bodyMd = _style(fontFamily, 14, 20, FontWeight.w400),
+      bodyLg = _style(fontFamily, 16, 22, FontWeight.w400),
+      titleSm = _style(fontFamily, 18, 22, FontWeight.w600),
+      titleMd = _style(fontFamily, 22, 26, FontWeight.w600),
+      titleLg = _style(fontFamily, 28, 32, FontWeight.w600),
+      displaySm = _style(fontFamily, 32, 36, FontWeight.w700),
+      displayMd = _style(fontFamily, 48, 52, FontWeight.w700),
+      pageDisplay = _style(fontFamily, 38, 42, FontWeight.w700, -1.2),
+      headline = _style(fontFamily, 26, 30, FontWeight.w600, -0.8);
 
+  /// Font family used by every style; `null` means the platform font.
   final String? fontFamily;
-  final TextStyle labelXs, labelSm, bodySm, bodyMd, bodyLg;
-  final TextStyle titleSm, titleMd, titleLg, displaySm, displayMd;
-  final TextStyle pageDisplay, headline;
+
+  /// 11 / 14, semibold: tiny labels.
+  final TextStyle labelXs;
+
+  /// 12 / 15, semibold: chip and badge labels.
+  final TextStyle labelSm;
+
+  /// 13 / 18: captions and secondary lines.
+  final TextStyle bodySm;
+
+  /// 14 / 20: default body text.
+  final TextStyle bodyMd;
+
+  /// 16 / 22: large body text.
+  final TextStyle bodyLg;
+
+  /// 18 / 22, semibold: card and row titles.
+  final TextStyle titleSm;
+
+  /// 22 / 26, semibold: section titles.
+  final TextStyle titleMd;
+
+  /// 28 / 32, semibold: page titles.
+  final TextStyle titleLg;
+
+  /// 32 / 36, bold: small display text.
+  final TextStyle displaySm;
+
+  /// 48 / 52, bold: hero display text.
+  final TextStyle displayMd;
+
+  /// 38 / 42, bold, tight tracking: page hero titles.
+  final TextStyle pageDisplay;
+
+  /// 26 / 30, semibold, tight tracking: headlines.
+  final TextStyle headline;
 
   /// The Material slots Nuvio overrides; others keep Material 3 defaults.
   TextTheme toTextTheme() => TextTheme(
-        displayLarge: pageDisplay,
-        headlineLarge: headline,
-        titleLarge: _style(fontFamily, 18, 24, FontWeight.w600),
-        titleMedium: _style(fontFamily, 16, 20, FontWeight.w600),
-        bodyLarge: _style(fontFamily, 15, 22, FontWeight.w400),
-        bodyMedium: bodyMd,
-        labelLarge: _style(fontFamily, 14, 18, FontWeight.w600),
-        labelMedium: _style(fontFamily, 12, 14, FontWeight.w600, 0.8),
-      );
+    displayLarge: pageDisplay,
+    headlineLarge: headline,
+    titleLarge: _style(fontFamily, 18, 24, FontWeight.w600),
+    titleMedium: _style(fontFamily, 16, 20, FontWeight.w600),
+    bodyLarge: _style(fontFamily, 15, 22, FontWeight.w400),
+    bodyMedium: bodyMd,
+    labelLarge: _style(fontFamily, 14, 18, FontWeight.w600),
+    labelMedium: _style(fontFamily, 12, 14, FontWeight.w600, 0.8),
+  );
 
   @override
   NuvioTypeScale copyWith({String? fontFamily}) =>
