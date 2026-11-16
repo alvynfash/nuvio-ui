@@ -1,0 +1,11 @@
+name: nuvio_design_example
+publish_to: none
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  nuvio_design:
+    path: ..

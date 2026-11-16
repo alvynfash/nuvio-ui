@@ -1,0 +1,182 @@
+// The 12 built-in accent themes (ThemeColors.kt / AppTheme enum).
+
+import 'package:flutter/painting.dart';
+
+const _white = Color(0xFFFFFFFF);
+
+class NuvioPalette {
+  const NuvioPalette({
+    required this.name,
+    required this.secondary,
+    required this.secondaryVariant,
+    List<Color>? accentGradient,
+    required this.focusRing,
+    required this.focusBackground,
+    this.onSecondary = _white,
+    this.onSecondaryVariant = _white,
+    this.background = const Color(0xFF0D0D0D),
+    this.backgroundElevated = const Color(0xFF1A1A1A),
+    this.backgroundCard = const Color(0xFF242424),
+  }) : _accentGradient = accentGradient;
+
+  final String name;
+  final Color secondary; // the accent
+  final Color secondaryVariant;
+  final List<Color>? _accentGradient;
+  final Color onSecondary;
+  final Color onSecondaryVariant;
+  final Color focusRing;
+  final Color focusBackground;
+  final Color background;
+  final Color backgroundElevated;
+  final Color backgroundCard;
+
+  /// Solid themes default to a single-stop "gradient" of the accent.
+  List<Color> get accentGradient => _accentGradient ?? [secondary];
+
+  LinearGradient get accentBrush => LinearGradient(
+        colors: accentGradient.length == 1
+            ? [accentGradient.first, accentGradient.first]
+            : accentGradient,
+      );
+
+  static const gold = NuvioPalette(
+    name: 'Gold',
+    secondary: Color(0xFFE8A91C),
+    secondaryVariant: Color(0xFF9A6200),
+    accentGradient: [Color(0xFF8A5700), Color(0xFFE8A91C), Color(0xFFFFF1A8), Color(0xFFFFD45C), Color(0xFF9A6200)],
+    onSecondary: Color(0xFF111111),
+    onSecondaryVariant: _white,
+    focusRing: Color(0xFFFFD45C),
+    focusBackground: Color(0xFF3D2D1A),
+    background: Color(0xFF0F0E0B),
+    backgroundElevated: Color(0xFF1D1A14),
+    backgroundCard: Color(0xFF262116),
+  );
+  static const jade = NuvioPalette(
+    name: 'Jade',
+    secondary: Color(0xFF22D37C),
+    secondaryVariant: Color(0xFF0BBF9A),
+    accentGradient: [Color(0xFF7BF08D), Color(0xFF22D37C), Color(0xFF0BBF9A)],
+    onSecondary: Color(0xFF111111),
+    onSecondaryVariant: Color(0xFF111111),
+    focusRing: Color(0xFF7BF08D),
+    focusBackground: Color(0xFF153A2C),
+    background: Color(0xFF0B0F0D),
+    backgroundElevated: Color(0xFF141D18),
+    backgroundCard: Color(0xFF16251D),
+  );
+  static const roseGold = NuvioPalette(
+    name: 'Rose Gold',
+    secondary: Color(0xFFEC70A9),
+    secondaryVariant: Color(0xFFB75AFF),
+    accentGradient: [Color(0xFFB75AFF), Color(0xFFEC70A9), Color(0xFFFFB37A)],
+    onSecondary: Color(0xFF111111),
+    onSecondaryVariant: _white,
+    focusRing: Color(0xFFFFB37A),
+    focusBackground: Color(0xFF442037),
+    background: Color(0xFF100C0F),
+    backgroundElevated: Color(0xFF1F161D),
+    backgroundCard: Color(0xFF281A24),
+  );
+  static const arcticBlue = NuvioPalette(
+    name: 'Arctic Blue',
+    secondary: Color(0xFF3185F5),
+    secondaryVariant: Color(0xFF4D55E8),
+    accentGradient: [Color(0xFF4DE3FF), Color(0xFF3185F5), Color(0xFF4D55E8)],
+    focusRing: Color(0xFF4DE3FF),
+    focusBackground: Color(0xFF172844),
+    background: Color(0xFF0B0E14),
+    backgroundElevated: Color(0xFF141A24),
+    backgroundCard: Color(0xFF161E2A),
+  );
+  static const graphite = NuvioPalette(
+    name: 'Graphite',
+    secondary: Color(0xFFAAB2BE),
+    secondaryVariant: Color(0xFF687381),
+    accentGradient: [Color(0xFFF3F5F7), Color(0xFFAAB2BE), Color(0xFF687381)],
+    onSecondary: Color(0xFF111111),
+    focusRing: Color(0xFFF3F5F7),
+    focusBackground: Color(0xFF30343A),
+    background: Color(0xFF0C0D0F),
+    backgroundElevated: Color(0xFF17191D),
+    backgroundCard: Color(0xFF20242A),
+  );
+  static const crimson = NuvioPalette(
+    name: 'Crimson',
+    secondary: Color(0xFFE53935),
+    secondaryVariant: Color(0xFFC62828),
+    focusRing: Color(0xFFFF5252),
+    focusBackground: Color(0xFF3D1A1A),
+    background: Color(0xFF0D0D0D),
+    backgroundElevated: Color(0xFF1A1A1A),
+    backgroundCard: Color(0xFF241A1A),
+  );
+  static const ocean = NuvioPalette(
+    name: 'Ocean',
+    secondary: Color(0xFF1E88E5),
+    secondaryVariant: Color(0xFF1565C0),
+    focusRing: Color(0xFF42A5F5),
+    focusBackground: Color(0xFF1A2D3D),
+    background: Color(0xFF0D0D0F),
+    backgroundElevated: Color(0xFF1A1A1E),
+    backgroundCard: Color(0xFF1A1F24),
+  );
+  static const violet = NuvioPalette(
+    name: 'Violet',
+    secondary: Color(0xFF8E24AA),
+    secondaryVariant: Color(0xFF6A1B9A),
+    focusRing: Color(0xFFAB47BC),
+    focusBackground: Color(0xFF2D1A3D),
+    background: Color(0xFF0D0D0F),
+    backgroundElevated: Color(0xFF1A1A1E),
+    backgroundCard: Color(0xFF1F1A24),
+  );
+  static const emerald = NuvioPalette(
+    name: 'Emerald',
+    secondary: Color(0xFF43A047),
+    secondaryVariant: Color(0xFF2E7D32),
+    focusRing: Color(0xFF66BB6A),
+    focusBackground: Color(0xFF1A3D1E),
+    background: Color(0xFF0D0D0D),
+    backgroundElevated: Color(0xFF1A1A1A),
+    backgroundCard: Color(0xFF1A241A),
+  );
+  static const amber = NuvioPalette(
+    name: 'Amber',
+    secondary: Color(0xFFFB8C00),
+    secondaryVariant: Color(0xFFEF6C00),
+    focusRing: Color(0xFFFFA726),
+    focusBackground: Color(0xFF3D2D1A),
+    background: Color(0xFF0F0D0D),
+    backgroundElevated: Color(0xFF1E1A1A),
+    backgroundCard: Color(0xFF24201A),
+  );
+  static const rose = NuvioPalette(
+    name: 'Rose',
+    secondary: Color(0xFFD81B60),
+    secondaryVariant: Color(0xFFC2185B),
+    focusRing: Color(0xFFEC407A),
+    focusBackground: Color(0xFF3D1A2D),
+    background: Color(0xFF0D0D0D),
+    backgroundElevated: Color(0xFF1A1A1A),
+    backgroundCard: Color(0xFF241A1F),
+  );
+  static const white = NuvioPalette(
+    name: 'White',
+    secondary: Color(0xFFF5F5F5),
+    secondaryVariant: Color(0xFFE0E0E0),
+    onSecondary: Color(0xFF111111),
+    onSecondaryVariant: Color(0xFF111111),
+    focusRing: Color(0xFFFFFFFF),
+    focusBackground: Color(0xFF303030),
+    background: Color(0xFF0D0D0D),
+    backgroundElevated: Color(0xFF1A1A1A),
+    backgroundCard: Color(0xFF222222),
+  );
+
+  static const all = [
+    gold, jade, roseGold, arcticBlue, graphite, crimson,
+    ocean, violet, emerald, amber, rose, white,
+  ];
+}
