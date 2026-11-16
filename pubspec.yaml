@@ -1,9 +1,30 @@
 name: nuvio_ui
 description: Dark, cinematic Flutter design system and UI kit with design tokens, 12 accent color palettes, a Material 3 theme and 30+ widgets for media and streaming apps.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/alvynfash/nuvio-ui
 repository: https://github.com/alvynfash/nuvio-ui
 issue_tracker: https://github.com/alvynfash/nuvio-ui/issues
+screenshots:
+  - description: 'Stream picker screen built with glass panels, filter pills, list cards and badges.'
+    path: doc/screenshots/01-stream-picker.jpg
+  - description: 'Gallery overview: quick start, theme setup and token usage.'
+    path: doc/screenshots/02-overview.jpg
+  - description: 'The 12 accent palettes, 5 with gradient accents.'
+    path: doc/screenshots/03-palettes.jpg
+  - description: 'Settings building blocks: sidebar items, sections, switch, slider and navigation rows.'
+    path: doc/screenshots/04-settings.jpg
+  - description: 'Chips, filter pills, dropdown chip and info badges.'
+    path: doc/screenshots/05-chips.jpg
+  - description: 'Themed switches, radios, option tiles, checkboxes, sliders and text fields.'
+    path: doc/screenshots/06-inputs.jpg
+  - description: 'NuvioDialog with primary, secondary and destructive buttons.'
+    path: doc/screenshots/07-dialog.jpg
+  - description: 'Inset bottom sheet with drag handle and icon action rows.'
+    path: doc/screenshots/08-bottom-sheet.jpg
+  - description: 'Toast, status banner, progress bar and loading indicator.'
+    path: doc/screenshots/09-feedback.jpg
+  - description: 'Type ramp in the bundled JetBrains Sans.'
+    path: doc/screenshots/10-typography.jpg
 topics:
   - design-system
   - ui
@@ -12,7 +33,7 @@ topics:
   - dark-mode
 # Keep this until assets/fonts/ (JetBrains Sans, not licensed for
 # redistribution) is replaced; see assets/fonts/NOTICE.md.
-publish_to: none
+# publish_to: none
 
 environment:
   sdk: ^3.7.0

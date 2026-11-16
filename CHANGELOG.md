@@ -1,3 +1,15 @@
+## 0.1.1
+
+Documentation only; no API changes.
+
+- README: hero screenshot, a screenshot gallery of all component groups, a
+  runnable example, and a links section (repository, issues, API docs).
+- pub.dev: 10 listing screenshots (`screenshots:` in `pubspec.yaml`).
+- Example tab: `example/README.md` now walks through a complete quick-start
+  app (`example/lib/quick_start.dart`) plus the full gallery.
+- `tool/update_screenshots.sh` regenerates the screenshots from the gallery
+  (macOS), via an opt-in render test with real fonts.
+
 ## 0.1.0
 
 First release.
