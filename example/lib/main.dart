@@ -11,7 +11,10 @@ import 'gallery/shell.dart';
 void main() => runApp(const GalleryApp());
 
 class GalleryApp extends HookWidget {
-  const GalleryApp({super.key});
+  const GalleryApp({super.key, this.initialPage});
+
+  /// Title of the gallery page to open first (defaults to the overview).
+  final String? initialPage;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class GalleryApp extends HookWidget {
       title: 'nuvio_ui gallery',
       debugShowCheckedModeBanner: false,
       theme: NuvioThemeData.build(settings.palette, amoled: settings.amoled),
-      home: const GalleryShell(),
+      home: GalleryShell(initialPage: initialPage),
     );
   }
 }

@@ -2,6 +2,8 @@
 
 A dark, cinematic Flutter design system modelled on the **Nuvio** desktop app.
 
+![A stream picker screen built entirely with nuvio_ui](doc/screenshots/01-stream-picker.jpg)
+
 It gives you a complete **dark-theme UI kit** for media, streaming and
 entertainment apps:
 
@@ -19,7 +21,9 @@ Riverpod or Bloc apps.
 
 ## Contents
 
+- [Screenshots](#screenshots)
 - [Quick start](#quick-start)
+- [Example](#example)
 - [Using tokens](#using-tokens)
 - [Palettes](#palettes)
 - [Components](#components)
@@ -27,15 +31,27 @@ Riverpod or Bloc apps.
 - [Fonts](#fonts)
 - [Gallery app](#gallery-app)
 - [FAQ](#faq)
+- [Links](#links)
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Palettes](doc/screenshots/03-palettes.jpg) | ![Settings](doc/screenshots/04-settings.jpg) |
+| **Palettes:** 12 accent themes, 5 with gradients | **Settings:** sections, switch, slider and navigation rows |
+| ![Chips and pills](doc/screenshots/05-chips.jpg) | ![Inputs](doc/screenshots/06-inputs.jpg) |
+| **Chips & pills:** chips, filter pills, dropdowns, badges | **Inputs:** themed switch, radio, checkbox, slider, text field |
+| ![Dialog](doc/screenshots/07-dialog.jpg) | ![Bottom sheet](doc/screenshots/08-bottom-sheet.jpg) |
+| **Dialogs:** primary, secondary and destructive actions | **Bottom sheets:** inset sheet with icon action rows |
+| ![Feedback](doc/screenshots/09-feedback.jpg) | ![Typography](doc/screenshots/10-typography.jpg) |
+| **Feedback:** toast, status banner, progress, loading | **Typography:** the type ramp in JetBrains Sans |
+
+All screenshots come from the [gallery app](#gallery-app) in `example/`.
 
 ## Quick start
 
-```yaml
-dependencies:
-  nuvio_ui:
-    git:
-      url: https://github.com/alvynfash/nuvio-ui.git
-      ref: main
+```sh
+flutter pub add nuvio_ui
 ```
 
 ```dart
@@ -165,10 +181,86 @@ NuvioThemeData.build(palette, fontFamily: null);
 ```
 
 > ⚠️ **JetBrains Sans is not openly licensed.** Its metadata reads "All rights
-> reserved", and JetBrains has not released it for redistribution. It is
-> included for private use only, which is why this package is marked
-> `publish_to: none`. See [`assets/fonts/NOTICE.md`](assets/fonts/NOTICE.md)
-> for how to swap it out before publishing.
+> reserved", and JetBrains has not released it for redistribution. See
+> [`assets/fonts/NOTICE.md`](assets/fonts/NOTICE.md). If you ship an app with
+> nuvio_ui, consider passing your own `fontFamily`.
+
+## Example
+
+A complete, runnable app is in
+[`example/lib/quick_start.dart`](example/lib/quick_start.dart) (also shown on
+pub.dev's **Example** tab). Its key parts:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:nuvio_ui/nuvio_ui.dart';
+
+final palette = ValueNotifier(NuvioPalette.arcticBlue);
+
+class QuickStartApp extends StatelessWidget {
+  const QuickStartApp({super.key});
+
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder(
+    valueListenable: palette,
+    builder: (_, p, _) => MaterialApp(
+      theme: NuvioThemeData.build(p), // 1. apply the theme
+      home: const HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.nuvioColors; // 2. read tokens from context
+    final t = context.nuvioType;
+
+    return Scaffold(
+      body: ListView(
+        padding: const EdgeInsets.all(NuvioSpace.s24),
+        children: [
+          Text('The Odyssey', style: t.pageDisplay.copyWith(color: c.textPrimary)),
+          NuvioPrimaryButton(
+            label: 'Play',
+            icon: Icons.play_arrow_rounded,
+            onPressed: () => NuvioToast.show(context, 'Starting playback…'),
+          ),
+          // 3. Switch palettes at runtime.
+          Wrap(spacing: NuvioSpace.s8, children: [
+            for (final option in NuvioPalette.all.take(5))
+              NuvioFilterPill(
+                label: option.name,
+                selected: option == palette.value,
+                onTap: () => palette.value = option,
+              ),
+          ]),
+          // 4. Components: a list card that opens a dialog.
+          NuvioListCard(
+            onTap: () => showNuvioDialog<void>(
+              context,
+              builder: (ctx) => NuvioDialog(
+                title: 'Play in 1080p?',
+                actions: [
+                  NuvioDialogButton(label: 'Cancel', onPressed: () => Navigator.pop(ctx)),
+                  NuvioDialogButton(
+                    label: 'Play',
+                    style: NuvioDialogButtonStyle.primary,
+                    onPressed: () => Navigator.pop(ctx),
+                  ),
+                ],
+              ),
+            ),
+            child: Text('1080p', style: t.bodyMd.copyWith(color: c.textPrimary)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
 
 ## Gallery app
 
@@ -182,7 +274,8 @@ flutter run -d macos             # or an iPad/iPhone simulator, Android, Chrome�
 ```
 
 Run with `--dart-define=GALLERY_TOUR=true` to step through the key pages
-automatically, for example when taking screenshots.
+automatically. `tool/update_screenshots.sh` regenerates the screenshots above
+from the gallery (macOS; use `FLUTTER="fvm flutter"` with FVM).
 
 ## FAQ
 
@@ -197,6 +290,13 @@ black backgrounds.
 **Desktop scaling?** `NuvioThemeData.desktopUiScale(windowSize)` returns
 `clamp(min(w/1280, h/820), 1.0, 1.18)`. Combine it with
 `NuvioThemeData.desktopFontScale` (1.08) to scale the UI with large windows.
+
+## Links
+
+- **Repository:** https://github.com/alvynfash/nuvio-ui
+- **Issues:** https://github.com/alvynfash/nuvio-ui/issues
+- **API reference:** https://pub.dev/documentation/nuvio_ui/latest/
+- **Changelog:** [CHANGELOG.md](CHANGELOG.md)
 
 ## License
 

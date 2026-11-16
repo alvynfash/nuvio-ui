@@ -160,9 +160,12 @@ final ok = await showNuvioDialog<bool>(
           title: 'showNuvioBottomSheet',
           description:
               'Inset 10 px from the edges, 28 px radius, drag handle, icon action rows.',
-          preview: FilledButton(
-            onPressed: openSheet,
-            child: const Text('Open sheet'),
+          preview: Align(
+            alignment: Alignment.centerLeft,
+            child: FilledButton(
+              onPressed: openSheet,
+              child: const Text('Open sheet'),
+            ),
           ),
           code: '''
 showNuvioBottomSheet(

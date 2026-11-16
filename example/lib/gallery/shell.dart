@@ -119,11 +119,20 @@ final galleryEntries = <GalleryEntry>[
 ];
 
 class GalleryShell extends HookWidget {
-  const GalleryShell({super.key});
+  const GalleryShell({super.key, this.initialPage});
+
+  /// Title of the page to open first (defaults to the overview).
+  final String? initialPage;
 
   @override
   Widget build(BuildContext context) {
-    final index = useState(0);
+    final index = useState(
+      initialPage == null
+          ? 0
+          : galleryEntries
+              .indexWhere((e) => e.title == initialPage)
+              .clamp(0, galleryEntries.length - 1),
+    );
     useGalleryTour(index);
     final entry = galleryEntries[index.value];
     final wide =
