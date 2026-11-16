@@ -15,4 +15,6 @@ export 'src/typography.dart';
 export 'src/widgets/buttons.dart';
 export 'src/widgets/chips.dart';
 export 'src/widgets/feedback.dart';
+export 'src/widgets/overlays.dart';
+export 'src/widgets/settings.dart';
 export 'src/widgets/surfaces.dart';

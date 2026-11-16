@@ -1,6 +1,17 @@
-name: nuvio_design
-description: Dark, cinematic design system (tokens, 12 accent palettes, Material 3 theme and core widgets) modelled on the Nuvio desktop app.
+name: nuvio_ui
+description: Dark, cinematic Flutter design system and UI kit with design tokens, 12 accent color palettes, a Material 3 theme and 30+ widgets for media and streaming apps.
 version: 0.1.0
+homepage: https://github.com/alvynfash/nuvio-ui
+repository: https://github.com/alvynfash/nuvio-ui
+issue_tracker: https://github.com/alvynfash/nuvio-ui/issues
+topics:
+  - design-system
+  - ui
+  - theme
+  - widget
+  - dark-mode
+# Keep this until assets/fonts/ (JetBrains Sans, not licensed for
+# redistribution) is replaced; see assets/fonts/NOTICE.md.
 publish_to: none
 
 environment:
@@ -15,3 +26,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+
+flutter:
+  fonts:
+    - family: JetBrains Sans
+      fonts:
+        - asset: assets/fonts/JetBrainsSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/JetBrainsSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/JetBrainsSans-Bold.ttf
+          weight: 700

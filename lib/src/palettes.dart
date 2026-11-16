@@ -1,10 +1,12 @@
-// The 12 built-in accent themes (ThemeColors.kt / AppTheme enum).
+// The 12 built-in accent themes.
 
 import 'package:flutter/painting.dart';
 
 const _white = Color(0xFFFFFFFF);
 
+/// One of the built-in accent themes. Pass it to `NuvioThemeData.build`.
 class NuvioPalette {
+  /// Creates a palette. Solid palettes may omit [accentGradient].
   const NuvioPalette({
     required this.name,
     required this.secondary,
@@ -19,32 +21,59 @@ class NuvioPalette {
     this.backgroundCard = const Color(0xFF242424),
   }) : _accentGradient = accentGradient;
 
+  /// Display name, e.g. "Arctic Blue".
   final String name;
+
+  /// The accent colour.
   final Color secondary; // the accent
+  /// Stronger accent variant.
   final Color secondaryVariant;
   final List<Color>? _accentGradient;
+
+  /// Content colour on the accent.
   final Color onSecondary;
+
+  /// Content colour on the accent variant.
   final Color onSecondaryVariant;
+
+  /// Focus ring colour.
   final Color focusRing;
+
+  /// Background of focused / selected items.
   final Color focusBackground;
+
+  /// Page background.
   final Color background;
+
+  /// Elevated surfaces.
   final Color backgroundElevated;
+
+  /// Cards and inputs.
   final Color backgroundCard;
 
   /// Solid themes default to a single-stop "gradient" of the accent.
   List<Color> get accentGradient => _accentGradient ?? [secondary];
 
+  /// The accent as a [LinearGradient] (solid palettes give a flat gradient).
   LinearGradient get accentBrush => LinearGradient(
-        colors: accentGradient.length == 1
+    colors:
+        accentGradient.length == 1
             ? [accentGradient.first, accentGradient.first]
             : accentGradient,
-      );
+  );
 
+  /// The gold palette.
   static const gold = NuvioPalette(
     name: 'Gold',
     secondary: Color(0xFFE8A91C),
     secondaryVariant: Color(0xFF9A6200),
-    accentGradient: [Color(0xFF8A5700), Color(0xFFE8A91C), Color(0xFFFFF1A8), Color(0xFFFFD45C), Color(0xFF9A6200)],
+    accentGradient: [
+      Color(0xFF8A5700),
+      Color(0xFFE8A91C),
+      Color(0xFFFFF1A8),
+      Color(0xFFFFD45C),
+      Color(0xFF9A6200),
+    ],
     onSecondary: Color(0xFF111111),
     onSecondaryVariant: _white,
     focusRing: Color(0xFFFFD45C),
@@ -53,6 +82,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1D1A14),
     backgroundCard: Color(0xFF262116),
   );
+
+  /// The jade palette.
   static const jade = NuvioPalette(
     name: 'Jade',
     secondary: Color(0xFF22D37C),
@@ -66,6 +97,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF141D18),
     backgroundCard: Color(0xFF16251D),
   );
+
+  /// The roseGold palette.
   static const roseGold = NuvioPalette(
     name: 'Rose Gold',
     secondary: Color(0xFFEC70A9),
@@ -79,6 +112,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1F161D),
     backgroundCard: Color(0xFF281A24),
   );
+
+  /// The arcticBlue palette.
   static const arcticBlue = NuvioPalette(
     name: 'Arctic Blue',
     secondary: Color(0xFF3185F5),
@@ -90,6 +125,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF141A24),
     backgroundCard: Color(0xFF161E2A),
   );
+
+  /// The graphite palette.
   static const graphite = NuvioPalette(
     name: 'Graphite',
     secondary: Color(0xFFAAB2BE),
@@ -102,6 +139,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF17191D),
     backgroundCard: Color(0xFF20242A),
   );
+
+  /// The crimson palette.
   static const crimson = NuvioPalette(
     name: 'Crimson',
     secondary: Color(0xFFE53935),
@@ -112,6 +151,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1A1A1A),
     backgroundCard: Color(0xFF241A1A),
   );
+
+  /// The ocean palette.
   static const ocean = NuvioPalette(
     name: 'Ocean',
     secondary: Color(0xFF1E88E5),
@@ -122,6 +163,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1A1A1E),
     backgroundCard: Color(0xFF1A1F24),
   );
+
+  /// The violet palette.
   static const violet = NuvioPalette(
     name: 'Violet',
     secondary: Color(0xFF8E24AA),
@@ -132,6 +175,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1A1A1E),
     backgroundCard: Color(0xFF1F1A24),
   );
+
+  /// The emerald palette.
   static const emerald = NuvioPalette(
     name: 'Emerald',
     secondary: Color(0xFF43A047),
@@ -142,6 +187,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1A1A1A),
     backgroundCard: Color(0xFF1A241A),
   );
+
+  /// The amber palette.
   static const amber = NuvioPalette(
     name: 'Amber',
     secondary: Color(0xFFFB8C00),
@@ -152,6 +199,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1E1A1A),
     backgroundCard: Color(0xFF24201A),
   );
+
+  /// The rose palette.
   static const rose = NuvioPalette(
     name: 'Rose',
     secondary: Color(0xFFD81B60),
@@ -162,6 +211,8 @@ class NuvioPalette {
     backgroundElevated: Color(0xFF1A1A1A),
     backgroundCard: Color(0xFF241A1F),
   );
+
+  /// The white palette.
   static const white = NuvioPalette(
     name: 'White',
     secondary: Color(0xFFF5F5F5),
@@ -175,8 +226,19 @@ class NuvioPalette {
     backgroundCard: Color(0xFF222222),
   );
 
+  /// All 12 palettes, in display order.
   static const all = [
-    gold, jade, roseGold, arcticBlue, graphite, crimson,
-    ocean, violet, emerald, amber, rose, white,
+    gold,
+    jade,
+    roseGold,
+    arcticBlue,
+    graphite,
+    crimson,
+    ocean,
+    violet,
+    emerald,
+    amber,
+    rose,
+    white,
   ];
 }

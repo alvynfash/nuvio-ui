@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme.dart';
 import '../tokens.dart';
 
-/// Outlined selectable chip (core/ui/Chip.kt): 8 px radius, thin border,
+/// Outlined selectable chip: 8 px radius, thin border,
 /// white 15 % fill when selected.
 class NuvioChip extends StatelessWidget {
   const NuvioChip({
@@ -23,9 +23,10 @@ class NuvioChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.nuvioColors;
     final radius = NuvioRadius.all(NuvioRadius.md);
-    final fg = !enabled
-        ? c.textDisabled
-        : selected
+    final fg =
+        !enabled
+            ? c.textDisabled
+            : selected
             ? c.textPrimary
             : c.textMuted;
     return Material(
@@ -46,7 +47,10 @@ class NuvioChip extends StatelessWidget {
             horizontal: NuvioSpace.s12,
             vertical: NuvioSpace.s8,
           ),
-          child: Text(label, style: context.nuvioType.labelSm.copyWith(color: fg)),
+          child: Text(
+            label,
+            style: context.nuvioType.labelSm.copyWith(color: fg),
+          ),
         ),
       ),
     );
@@ -54,7 +58,7 @@ class NuvioChip extends StatelessWidget {
 }
 
 /// Pill-shaped filter toggle, as in the provider row above stream results
-/// (ProviderFilterRow.kt): 36 px tall, accent fill when selected, shrinks to
+/// 36 px tall, accent fill when selected, shrinks to
 /// 96 % while pressed.
 class NuvioFilterPill extends StatelessWidget {
   const NuvioFilterPill({
@@ -75,10 +79,10 @@ class NuvioFilterPill extends StatelessWidget {
     final c = context.nuvioColors;
     final fg = selected ? c.onAccent : c.textPrimary;
     final text = Theme.of(context).textTheme.labelMedium!.copyWith(
-          color: fg,
-          letterSpacing: 0,
-          fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
-        );
+      color: fg,
+      letterSpacing: 0,
+      fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+    );
     return NuvioPressScale(
       child: Material(
         color: selected ? c.accent : c.surfaceCard.withValues(alpha: 0.6),
@@ -86,16 +90,26 @@ class NuvioFilterPill extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
-          child: Container(
-            height: NuvioComponent.filterPillHeight,
-            constraints: const BoxConstraints(minWidth: NuvioComponent.filterPillHeight),
-            padding: EdgeInsets.symmetric(
-              horizontal: label == null ? 0 : NuvioSpace.s16,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: NuvioComponent.filterPillHeight,
+              minHeight: NuvioComponent.filterPillHeight,
+              maxHeight: NuvioComponent.filterPillHeight,
             ),
-            alignment: Alignment.center,
-            child: label == null
-                ? Icon(icon, size: NuvioIconSize.md, color: fg)
-                : Text(label!, style: text),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: label == null ? 0 : NuvioSpace.s16,
+              ),
+              // widthFactor 1 makes the pill hug its content instead of
+              // stretching to the available width.
+              child: Center(
+                widthFactor: 1,
+                child:
+                    label == null
+                        ? Icon(icon, size: NuvioIconSize.md, color: fg)
+                        : Text(label!, style: text),
+              ),
+            ),
           ),
         ),
       ),
@@ -126,14 +140,14 @@ class _NuvioPressScaleState extends State<NuvioPressScale> {
 
   @override
   Widget build(BuildContext context) => Listener(
-        onPointerDown: (_) => _set(true),
-        onPointerUp: (_) => _set(false),
-        onPointerCancel: (_) => _set(false),
-        child: AnimatedScale(
-          scale: _pressed ? widget.scale : 1,
-          duration: NuvioMotion.fast,
-          curve: NuvioMotion.standard,
-          child: widget.child,
-        ),
-      );
+    onPointerDown: (_) => _set(true),
+    onPointerUp: (_) => _set(false),
+    onPointerCancel: (_) => _set(false),
+    child: AnimatedScale(
+      scale: _pressed ? widget.scale : 1,
+      duration: NuvioMotion.fast,
+      curve: NuvioMotion.standard,
+      child: widget.child,
+    ),
+  );
 }
